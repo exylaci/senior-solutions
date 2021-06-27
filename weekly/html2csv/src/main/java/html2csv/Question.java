@@ -14,7 +14,7 @@ public class Question {
     private static final String ANY_PIECES_OF_QUOTES = "\"+";
     private static final String TWO_QUOTES = "\"\"";
     private static final String ONE_QUOTES = "\"";
-    private static final String LINE_FEED = "\n\r";
+    private static final String LINE_FEED = "\r\n";
 
     public Question(String question) {
         this.question = question;
@@ -80,8 +80,8 @@ public class Question {
 
     @Override
     public String toString() {
-        return "question='" + question + "'\n\r correct answer=" + correct +
-                answers.stream().map(answer -> "\n\r answers=" + answer).collect(Collectors.joining()) +
-                "\n\r";
+        return "question='" + question + "'\r\n correct answer=" + correct +
+                answers.stream().map(answer -> "\r\n answers=" + answer).collect(Collectors.joining()) +
+                "\r\n";
     }
 }

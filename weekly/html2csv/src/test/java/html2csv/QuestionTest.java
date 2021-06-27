@@ -15,7 +15,7 @@ class QuestionTest {
     // a <linefeed> bc --> "a <linefeed> bc"
     @Test
     void replaceQuotesLineFeed() {
-        assertEquals("\"a\n\rbc\"", new Question().setQuotes("a\n\rbc"));
+        assertEquals("\"a\r\nbc\"", new Question().setQuotes("a\r\nbc"));
     }
 
     // a""b"c --> "a""b""c"
@@ -30,4 +30,16 @@ class QuestionTest {
         assertEquals("\"\"\"abc\"\"\"", new Question().setQuotes("\"abc\""));
     }
 
+    @Test
+    void getFullQuestion() {
+        Question question =new Question("kérdés");
+        question.appendQuestion("2. sor");
+        question.addANewAnswer("1. válasz");
+        question.addANewAnswer("2. válasz");
+        question.addANewAnswer("3. válasz");
+        question.setCorrect();
+        question.addANewAnswer("4. válasz");
+        assertEquals("\"kérdés\r\n2. sor\";3;1. válasz;2. válasz;3. válasz;4. válasz",
+                question.getFullQuestion());
+    }
 }
