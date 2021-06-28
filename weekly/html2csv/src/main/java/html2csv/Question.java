@@ -59,7 +59,7 @@ public class Question {
     }
 
     protected String setQuotes(String text) {
-        if (text.contains(ONE_QUOTES) || text.contains(LINE_FEED) || text.contains(";")) {
+        if (text.contains(ONE_QUOTES) || text.contains("\n") || text.contains(";")) {
             return '"' + text.replaceAll(ANY_PIECES_OF_QUOTES, TWO_QUOTES) + '"';
         }
         return text;

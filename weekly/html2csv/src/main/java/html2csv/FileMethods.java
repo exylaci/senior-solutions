@@ -49,7 +49,7 @@ public class FileMethods {
             "<a href="
     );
 
-    private static final Map<String, String> REPLACE_THESE = Map.of(
+    private static final Map<String, String> CONVERT_THESE = Map.of(
             "&amp;", "&"
     );
 
@@ -133,6 +133,14 @@ public class FileMethods {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(line);
 
+        eraseSimpleHtmlCodes(stringBuilder);
+        eraseHtmlCodesWithPatameter(stringBuilder);
+        convertHtmlCaractersToAscii(stringBuilder);
+
+        return stringBuilder.toString();
+    }
+
+    private void eraseSimpleHtmlCodes(StringBuilder stringBuilder) {
         for (String eraseThis : CUT_THESE) {
             int start = stringBuilder.indexOf(eraseThis);
             while (start >= 0) {
@@ -141,15 +149,22 @@ public class FileMethods {
                 start = stringBuilder.indexOf(eraseThis);
             }
         }
+    }
+
+    private void eraseHtmlCodesWithPatameter(StringBuilder stringBuilder) {
         for (String removeThis : REMOVE_THESE) {
             int start = stringBuilder.indexOf(removeThis);
-            while (start >= 0) {
-                int end = stringBuilder.indexOf("\">", start) + 2;
+            int end = stringBuilder.indexOf("\">", start) + 2;
+            while (start >= 0 && end >= 0) {
                 stringBuilder.delete(start, end);
                 start = stringBuilder.indexOf(removeThis);
+                end = stringBuilder.indexOf("\">", start) + 2;
             }
         }
-        for (Map.Entry replaceThis : REPLACE_THESE.entrySet()) {
+    }
+
+    private void convertHtmlCaractersToAscii(StringBuilder stringBuilder) {
+        for (Map.Entry replaceThis : CONVERT_THESE.entrySet()) {
             int start = stringBuilder.indexOf(replaceThis.getKey().toString());
             while (start >= 0) {
                 int end = start + replaceThis.getKey().toString().length();
@@ -157,8 +172,6 @@ public class FileMethods {
                 start = stringBuilder.indexOf(replaceThis.getKey().toString());
             }
         }
-
-        return stringBuilder.toString();
     }
 
     protected List<Question> getQuestions() {
