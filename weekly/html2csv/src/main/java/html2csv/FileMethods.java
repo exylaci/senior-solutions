@@ -24,32 +24,34 @@ public class FileMethods {
     public static final String ANSWERS_ENDS_WITH = "</ul>";
     public static final String CORRECT_ANSWER_SIGN = "<input type=\"checkbox\" disabled=\"\" checked=\"\" />";
 
-    private static final List<String> CUT_THESE = List.of(
-            CORRECT_ANSWER_SIGN,
-            ANSWERS_START_WITH,
-            ANSWERS_ENDS_WITH,
-            ANSWER_STARTS_WITH,
-            ANSWER_ENDS_WITH,
-            "</h1>",
-            "<p>",
-            "</p>",
-            "</div>",
-            "</span>",
-            "</code>",
-            "</pre>",
-            "</a>"
-    );
-
-    private static final List<String> REMOVE_THESE = List.of(
-            "<div class=",
-            "<span id=",
-            "<span class=",
-            "<code class=",
-            "<pre class=",
-            "<a href="
-    );
+//    private static final List<String> CUT_THESE = List.of(
+//            CORRECT_ANSWER_SIGN,
+//            ANSWERS_START_WITH,
+//            ANSWERS_ENDS_WITH,
+//            ANSWER_STARTS_WITH,
+//            ANSWER_ENDS_WITH,
+//            "</h1>",
+//            "<p>",
+//            "</p>",
+//            "</div>",
+//            "</span>",
+//            "</code>",
+//            "</pre>",
+//            "</a>"
+//    );
+//
+//    private static final List<String> REMOVE_THESE = List.of(
+//            "<div class=",
+//            "<span id=",
+//            "<span class=",
+//            "<code class=",
+//            "<pre class=",
+//            "<a href="
+//    );
 
     private static final Map<String, String> CONVERT_THESE = Map.of(
+            "&gt;", ">",
+            "&lt;", "<",
             "&amp;", "&"
     );
 
@@ -129,50 +131,57 @@ public class FileMethods {
         }
     }
 
-    protected String conversions(String line) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(line);
+    protected String conversions(String lineWithHtmlCodes) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append(line);
+//
+//        eraseSimpleHtmlCodes(stringBuilder);
+//        eraseHtmlCodesWithPatameter(stringBuilder);
+//        convertHtmlCaractersToAscii(stringBuilder);
+//
+//        return stringBuilder.toString();
 
-        eraseSimpleHtmlCodes(stringBuilder);
-        eraseHtmlCodesWithPatameter(stringBuilder);
-        convertHtmlCaractersToAscii(stringBuilder);
+        String text = lineWithHtmlCodes.replaceAll("<[^>]+>", "");
 
-        return stringBuilder.toString();
-    }
-
-    private void eraseSimpleHtmlCodes(StringBuilder stringBuilder) {
-        for (String eraseThis : CUT_THESE) {
-            int start = stringBuilder.indexOf(eraseThis);
-            while (start >= 0) {
-                int end = start + eraseThis.length();
-                stringBuilder.delete(start, end);
-                start = stringBuilder.indexOf(eraseThis);
-            }
+        for (Map.Entry entry : CONVERT_THESE.entrySet()) {
+            text = text.replaceAll(entry.getKey().toString(), entry.getValue().toString());
         }
+        return text.trim();
     }
 
-    private void eraseHtmlCodesWithPatameter(StringBuilder stringBuilder) {
-        for (String removeThis : REMOVE_THESE) {
-            int start = stringBuilder.indexOf(removeThis);
-            int end = stringBuilder.indexOf("\">", start) + 2;
-            while (start >= 0 && end >= 0) {
-                stringBuilder.delete(start, end);
-                start = stringBuilder.indexOf(removeThis);
-                end = stringBuilder.indexOf("\">", start) + 2;
-            }
-        }
-    }
-
-    private void convertHtmlCaractersToAscii(StringBuilder stringBuilder) {
-        for (Map.Entry replaceThis : CONVERT_THESE.entrySet()) {
-            int start = stringBuilder.indexOf(replaceThis.getKey().toString());
-            while (start >= 0) {
-                int end = start + replaceThis.getKey().toString().length();
-                stringBuilder.replace(start, end, replaceThis.getValue().toString());
-                start = stringBuilder.indexOf(replaceThis.getKey().toString());
-            }
-        }
-    }
+//    private void eraseSimpleHtmlCodes(StringBuilder stringBuilder) {
+//        for (String eraseThis : CUT_THESE) {
+//            int start = stringBuilder.indexOf(eraseThis);
+//            while (start >= 0) {
+//                int end = start + eraseThis.length();
+//                stringBuilder.delete(start, end);
+//                start = stringBuilder.indexOf(eraseThis);
+//            }
+//        }
+//    }
+//
+//    private void eraseHtmlCodesWithPatameter(StringBuilder stringBuilder) {
+//        for (String removeThis : REMOVE_THESE) {
+//            int start = stringBuilder.indexOf(removeThis);
+//            int end = stringBuilder.indexOf("\">", start) + 2;
+//            while (start >= 0 && end >= 0) {
+//                stringBuilder.delete(start, end);
+//                start = stringBuilder.indexOf(removeThis);
+//                end = stringBuilder.indexOf("\">", start) + 2;
+//            }
+//        }
+//    }
+//
+//    private void convertHtmlCaractersToAscii(StringBuilder stringBuilder) {
+//        for (Map.Entry replaceThis : CONVERT_THESE.entrySet()) {
+//            int start = stringBuilder.indexOf(replaceThis.getKey().toString());
+//            while (start >= 0) {
+//                int end = start + replaceThis.getKey().toString().length();
+//                stringBuilder.replace(start, end, replaceThis.getValue().toString());
+//                start = stringBuilder.indexOf(replaceThis.getKey().toString());
+//            }
+//        }
+//    }
 
     protected List<Question> getQuestions() {
         return new ArrayList<>(questions);

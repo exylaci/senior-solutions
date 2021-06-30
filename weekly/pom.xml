@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>senior-solutions</artifactId>
+        <groupId>training360</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>weekly</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>movie</module>
+        <module>strams-demo</module>
+        <module>car</module>
+        <module>bikes</module>
+        <module>html2csv</module>
+        <module>movie2</module>
+        <module>streams</module>
+        <module>eb</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+    </properties>
+
+</project>

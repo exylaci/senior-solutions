@@ -1,0 +1,44 @@
+###
+GET http://localhost:8080/api/movies
+Accept: application/json
+
+###
+GET http://localhost:8080/api/movies?title=angyal
+Accept: application/json
+
+###
+GET http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "ördög"
+}
+
+###
+GET http://localhost:8080/api/movies/2
+Accept: application/json
+
+###
+POST http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Ördögűző",
+  "length": "666"
+}
+
+###
+PUT http://localhost:8080/api/movies/2/rating
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rating": 5
+}
+
+###
+DELETE http://localhost:8080/api/movies/1
+Accept: application/json
+

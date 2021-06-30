@@ -11,7 +11,7 @@ class FileMethodsTest {
 
     @Test
     void conversionsCut() {
-        assertEquals("abc", new FileMethods().conversions("</h1>a<p>b</span>c</span>"));
+        assertEquals("ab<>c", new FileMethods().conversions("</h1>a<p>b<></span>c</span>"));
 
     }
 

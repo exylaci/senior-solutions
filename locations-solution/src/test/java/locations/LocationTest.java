@@ -95,12 +95,13 @@ class LocationTest {
             {0., 0., true},
             {-47.497912, 0., false}};
 
-    @Disabled
+//    @Disabled
     @ParameterizedTest
     @CsvFileSource(resources = "/coordinates.csv")
     void distanceFromTest(double lat1, double lon1, double lat2, double lon2, double distance) {
         assertEquals(distance,
-                new Location("", lat1, lon1).distanceFrom(new Location("", lat2, lon2)));
+                new Location("", lat1, lon1).distanceFrom(new Location("", lat2, lon2)),
+                0.1);
     }
 
     @TestFactory
