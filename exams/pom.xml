@@ -2,28 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>senior-solutions</artifactId>
+        <groupId>training360</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>exams</artifactId>
     <packaging>pom</packaging>
-
-    <groupId>training360</groupId>
-    <artifactId>senior-solutions</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
     <modules>
-        <module>meetingrooms</module>
-        <module>weekly</module>
-        <module>examples</module>
-        <module>locations-solution</module>
-        <module>locations-spring-solution</module>
-        <module>gyaxi</module>
-        <module>exams</module>
+        <module>musicstore</module>
     </modules>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
-
 
 </project>
