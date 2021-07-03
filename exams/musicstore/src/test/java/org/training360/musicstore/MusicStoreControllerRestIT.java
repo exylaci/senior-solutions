@@ -1,6 +1,8 @@
 package org.training360.musicstore;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -119,6 +121,21 @@ public class MusicStoreControllerRestIT {
                 Problem.class);
         assertEquals(Status.BAD_REQUEST, result.getStatus());
 
+    }
+
+
+    CreateInstrumentCommand[] commands = {
+            new CreateInstrumentCommand("", InstrumentType.ELECTRIC_GUITAR, 1),
+            new CreateInstrumentCommand("Fender", null, 1),
+            new CreateInstrumentCommand("Fender", InstrumentType.ELECTRIC_GUITAR, -1)};
+
+    @RepeatedTest(value = 3)
+    void testAddInvalidInstrument(RepetitionInfo repetitionInfo) {
+        Problem result = template.postForObject(
+                "/api/instruments",
+                commands[repetitionInfo.getCurrentRepetition() - 1],
+                Problem.class);
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
     }
 
 }

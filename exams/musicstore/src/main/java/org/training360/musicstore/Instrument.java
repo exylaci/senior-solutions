@@ -24,7 +24,8 @@ public class Instrument {
         this.postDate = LocalDate.now();
     }
 
-    public void setPostDate() {
+    public void setPrice(int price) {
+        this.price=price;
         this.postDate = LocalDate.now();
     }
 }

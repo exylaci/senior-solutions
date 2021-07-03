@@ -63,7 +63,6 @@ public class MusicStoreService {
         Instrument instrument = findInstrument(id);
         if (instrument.getPrice() != command.getPrice()) {
             instrument.setPrice(command.getPrice());
-            instrument.setPostDate();
         }
     }
 }
