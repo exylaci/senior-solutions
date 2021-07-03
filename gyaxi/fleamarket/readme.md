@@ -1,15 +1,15 @@
 # Bolhapiac
 
-### Bolhapiaci hírdetések kezelése
+### Bolhapiaci hirdetések kezelése
 
-Készíts egy programot, ami bolhapiaci portékákkal kapcsolatos hardetéseket kezeli a [/fleamarket/advertisement]() címen!
+Készíts egy programot, ami bolhapiaci portékákkal kapcsolatos hirdetéseket kezeli a [/fleamarket/advertisement]() címen!
 
-* A hírdetésekenek van témaköre, szövege és a feladásának, módosításának időpontja
+* A hirdetéseknek van témaköre, szövege és a feladásának, módosításának időpontja
 
-* Lehet új hírdetést feladni, vagy a szövegüket módosítani
-* Ki lehet listázni a hírdetéseket témakörök szerint, illetve a hírdetésben szereplő bármely szó (vagy szórészlet) alapján szűrve.
+* Lehet új hirdetést feladni, vagy a szövegüket módosítani
+* Ki lehet listázni a hirdetéseket témakörök szerint, illetve a hirdetésben szereplő bármely szó (vagy szórészlet) alapján szűrve.
 (A lista minden esetben időrendben a legfrissebbel kezdődik.)
-* Lehessen hírdetést az azonosítója alapján, illetve egy, vagy minden témakör legrégebbijét törölni.
+* Lehessen hirdetést az azonosítója alapján, illetve egy, vagy minden témakör legrégebbijét törölni.
 
-Hírdetést nem lehet feladni üres szöveggel, vagy ketgóriába sorolás nélkül!
-A hírdetés témaköre utólag már nem változtatható meg.
+Hirdetést nem lehet feladni üres szöveggel, vagy kategóriába sorolás nélkül!
+A hirdetés témaköre utólag már nem változtatható meg.

@@ -56,6 +56,10 @@ public class AdvertisementControllerRestTemplateIT {
 
     @Test
     void getAllItem() {
+        template.put("/fleamarket/advertisement/4",
+                new UpdateAdvertisementCommand("modified"),
+                AdvertisementDTO.class);
+
         List<AdvertisementDTO> result = template.exchange(
                 "/fleamarket/advertisement",
                 HttpMethod.GET,
@@ -67,6 +71,10 @@ public class AdvertisementControllerRestTemplateIT {
                 .hasSize(7)
                 .extracting(AdvertisementDTO::getLumberCategory)
                 .contains(LumberCategory.BÚTOR, LumberCategory.FESTMÉNY, LumberCategory.MŰSZAKICIKK);
+
+        assertEquals("modified",result.get(0).getText());
+        assertEquals("Második bútor.",result.get(3).getText());
+        assertEquals("Első festmény.",result.get(6).getText());
     }
 
     @Test
