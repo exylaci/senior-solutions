@@ -224,5 +224,7 @@ public class AdvertisementControllerRestTemplateIT {
                 .hasSize(4)
                 .extracting(AdvertisementDTO::getText)
                 .contains("Második bútor.", "Harmadik bútor.", "Második festmény.", "Harmadik festmény.");
+
+        IllegalArgumentException iae = assertEquals(IllegalArgumentException.class,  () -> new Employee("John Doe", 1800));
     }
 }
