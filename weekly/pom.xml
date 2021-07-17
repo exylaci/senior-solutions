@@ -18,8 +18,8 @@
         <module>bikes</module>
         <module>html2csv</module>
         <module>movie2</module>
-        <module>streams</module>
         <module>eb</module>
+        <module>nav</module>
     </modules>
 
     <properties>

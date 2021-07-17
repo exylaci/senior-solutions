@@ -1,0 +1,73 @@
+### get types
+GET http://localhost:8080/api/types
+
+### new appointment correct
+POST http://localhost:8080/api/appointments
+Content-Type: application/json
+
+{
+  "taxId": "0123456789",
+  "interval":
+    {
+      "begin": "2042-02-01T01:00:00",
+      "end": "2042-03-01T13:23:12"
+    },
+  "caseCode": "001"
+}
+
+### new appointment invalid taxid
+POST http://localhost:8080/api/appointments
+Content-Type: application/json
+
+{
+  "taxId": "0123456788",
+  "interval":
+    {
+      "begin": "2042-02-01T01:00:00",
+      "end": "2042-03-01T13:23:12"
+    },
+  "caseCode": "001"
+}
+
+### new appointment invalid start time
+POST http://localhost:8080/api/appointments
+Content-Type: application/json
+
+{
+  "taxId": "0123456789",
+  "interval":
+  {
+    "begin": "1999-02-01T01:00:00",
+    "end": "2042-03-01T13:23:12"
+  },
+  "caseCode": "001"
+}
+
+### new appointment earlier end time
+POST http://localhost:8080/api/appointments
+Content-Type: application/json
+
+{
+  "taxId": "0123456789",
+  "interval":
+  {
+    "begin": "2042-02-01T01:00:00",
+    "end": "2041-03-01T13:23:12"
+  },
+  "caseCode": "001"
+}
+
+### new appointment invalid code
+POST http://localhost:8080/api/appointments
+Content-Type: application/json
+
+{
+  "taxId": "0123456789",
+  "interval":
+  {
+    "begin": "2042-02-01T01:00:00",
+    "end": "2042-03-01T13:23:12"
+  },
+  "caseCode": "000"
+}
+
