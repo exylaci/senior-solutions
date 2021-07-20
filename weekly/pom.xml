@@ -20,6 +20,7 @@
         <module>movie2</module>
         <module>eb</module>
         <module>nav</module>
+        <module>meetingroomsjpa</module>
     </modules>
 
     <properties>
