@@ -1,0 +1,50 @@
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <!-- perzisztencia unit deklarációja neve: pu és lokális (csak egy adatbázison belüli) tranzakciókat használ -->
+    <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
+        <!--        <class>jpa.Employee</class> -->
+        <properties>
+            <!-- mysql esetén: -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <!-- mariadb esetén:
+                <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            -->
+
+            <property name="javax.persistence.jdbc.user" value="activitytracker"/>
+            <property name="javax.persistence.jdbc.password" value="activitytracker"/>
+
+            <!-- mysql esetén az adatséma neve: -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/activitytracker"/>
+            <!-- mariadb esetén:
+            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/activitytracker"/>
+            -->
+
+            <!-- mariadb esetén:
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB10Dialect"/>
+            -->
+
+            <!-- generált SQL parancsok kiíratása a konzolra -->
+            <property name="hibernate.show_sql" value="true"/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB10Dialect"/>
+
+            <!-- Ahhoz, hogy a hibernate generálja le az adattáblákat az attrribútumokon lévő @annotációk alapján -->
+            <!-- none: (alapértelmezett) nincs sémagenerálás -->
+            <!-- create: csak generál -->
+            <!-- drop: séma ürítése -->
+            <!-- drop-and-create: séma ürítése és generálása -->
+            <!-- flyway teszt esetén ez felesleges -->
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+
+            <!-- Ha egy szkriptbe hozza létre -->
+            <!-- <property name="javax.persistence.schema-generation.script.action" value="create"/> -->
+
+            <!-- Ha egy fáljba tegye bele a scriptet -->
+            <!-- <property name="javax.persistence.schema-generation.script.create-target" value="file:///c:/sripts/create.dll"/> -->
+
+        </properties>
+    </persistence-unit>
+</persistence>

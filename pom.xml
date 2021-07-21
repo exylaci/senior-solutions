@@ -17,6 +17,7 @@
         <module>locations-spring-solution</module>
         <module>gyaxi</module>
         <module>exams</module>
+        <module>activitytracker-jpa-solution</module>
     </modules>
 
     <properties>
