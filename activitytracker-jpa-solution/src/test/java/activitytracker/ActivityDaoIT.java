@@ -13,6 +13,7 @@ import javax.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -122,11 +123,11 @@ class ActivityDaoIT {
         Long id = activity2.getId();
 
         Activity result = dao.findWithObjectList(id);
-        assertThat(result.getPoints())
+        assertThat(result.getPoints().stream().sorted(Comparator.comparing(TrackPoint::getLat)))
                 .hasSize(3)
                 .extracting(TrackPoint::getLat)
                 .usingComparatorForType(new DoubleComparator(0.2), Double.class)
-//                .containsSequence(1.1, 3.1, 5.1)
+                .containsSequence(1.1, 3.1, 5.1)
 //                .contains(1.1,5.1,3.1)
         ;
     }
