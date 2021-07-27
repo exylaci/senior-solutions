@@ -21,6 +21,7 @@
         <module>eb</module>
         <module>nav</module>
         <module>meetingroomsjpa</module>
+        <module>moviespringdatajpa</module>
     </modules>
 
     <properties>

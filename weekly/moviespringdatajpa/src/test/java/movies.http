@@ -1,0 +1,30 @@
+### list movies
+GET http://localhost:8080/api/movies/
+Accept: application/json
+
+### create a movie
+POST http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Etüdök gépzongorára"
+}
+
+### add a rating 3
+POST http://localhost:8080/api/movies/2/rating
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rating": 3
+}
+
+### add other rating 5
+POST http://localhost:8080/api/movies/2/rating
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rating": 5
+}
