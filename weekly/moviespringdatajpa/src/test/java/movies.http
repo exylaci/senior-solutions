@@ -12,7 +12,7 @@ Accept: application/json
 }
 
 ### add a rating 3
-POST http://localhost:8080/api/movies/2/rating
+POST http://localhost:8080/api/movies/1/rating
 Content-Type: application/json
 Accept: application/json
 
@@ -21,7 +21,7 @@ Accept: application/json
 }
 
 ### add other rating 5
-POST http://localhost:8080/api/movies/2/rating
+POST http://localhost:8080/api/movies/1/rating
 Content-Type: application/json
 Accept: application/json
 

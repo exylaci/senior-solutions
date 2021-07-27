@@ -38,4 +38,15 @@ public class Movie {
         }
         ratings.add(rating);
     }
+
+    public void calculateRating() {
+        if (ratings == null || ratings.isEmpty()) {
+            rating = null;
+        } else {
+            rating = ratings.stream()
+                    .mapToDouble(a -> a)
+                    .average()
+                    .orElse(0);
+        }
+    }
 }
