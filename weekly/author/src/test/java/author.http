@@ -1,0 +1,37 @@
+### list the authors
+GET http://localhost:8080/api/authors
+Accept: application/json
+
+
+### create an author
+POST http://localhost:8080/api/authors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Puskin"
+}
+
+### create an author without name
+POST http://localhost:8080/api/authors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null
+}
+
+### add a book
+POST http://localhost:8080/api/authors/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "isbn": "a2342-3",
+  "title": "Anyegin"
+}
+
+
+### remove an author
+DELETE http://localhost:8080/api/authors/1
+Content-Type: application/json
