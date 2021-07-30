@@ -18,15 +18,15 @@ public class AuthorService {
     private ModelMapper modelMapper;
 
     public List<AuthorDto> getAuthors() {
-//        Type targetListType = new TypeToken<List<AuthorDto>>(){}.getType();
-//        List<Author> authors = authorRepository.findAll();
-//        return modelMapper.map(authors, targetListType);
+        Type targetListType = new TypeToken<List<AuthorDto>>(){}.getType();
+        List<Author> authors = authorRepository.findAll();
+        return modelMapper.map(authors, targetListType);
 
-        return authorRepository
-                .findAll()
-                .stream()
-                .map(a -> modelMapper.map(a, AuthorDto.class))
-                .toList();
+//        return authorRepository
+//                .findAll()
+//                .stream()
+//                .map(a -> modelMapper.map(a, AuthorDto.class))
+//                .toList();
     }
 
     public AuthorDto createAuthor(CreateAuthorCommand command) {

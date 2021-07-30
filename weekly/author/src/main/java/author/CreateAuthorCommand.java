@@ -10,6 +10,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateAuthorCommand {
-    // @NotNull
+    @NotNull
     private String name;
 }

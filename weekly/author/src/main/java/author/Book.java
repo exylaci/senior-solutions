@@ -2,6 +2,7 @@ package author;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -14,13 +15,14 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    // @Column(name = "book_id")
+    @Column(name = "book_id")
     private Long id;
     private String isbn;
     private String title;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "author_id")
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "author_id")
     private Author author;
 
     public Book(String isbn, String title) {

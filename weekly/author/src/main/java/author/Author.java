@@ -17,11 +17,11 @@ import java.util.Set;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    // @Column(name = "author_id")
+    @Column(name = "author_id")
     private Long id;
 
-    // @NotNull
-    // @Column(name = "author_name")
+    @NotNull
+    @Column(name = "author_name")
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")   //, orphanRemoval = true)
