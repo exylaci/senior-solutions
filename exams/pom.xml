@@ -11,8 +11,11 @@
 
     <artifactId>exams</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>musicstore</module>
+        <module>cinema</module>
+        <module>sv2021-jvjbf-zarovizsga</module>
     </modules>
 
     <properties>

@@ -1,0 +1,14 @@
+POST http://localhost:8080/api/players
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "dateOfBirth": "1992-11-12",
+  "position":"RIGHT_FULLBACK"
+}
+
+###
+GET http://localhost:8080/api/players
+Accept: application/json
+
+###

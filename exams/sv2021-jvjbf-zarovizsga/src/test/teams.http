@@ -1,0 +1,32 @@
+POST http://localhost:8080/api/teams
+Content-Type: application/json
+
+
+{
+  "name": "Arsenal"
+}
+
+
+###
+GET http://localhost:8080/api/teams
+Accept: application/json
+
+###
+POST http://localhost:8080/api/teams/1/players
+Content-Type: application/json
+
+{
+  "name": "Jack Doe",
+  "dateOfBirth": "1992-11-12",
+  "position":"RIGHT_FULLBACK"
+}
+
+###
+PUT http://localhost:8080/api/teams/2/players
+Content-Type: application/json
+
+{
+  "playerId": 1
+}
+
+
