@@ -22,7 +22,7 @@ public class TeamController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TeamDTO createPlayer(
+    public TeamDTO createTeam(
             @Valid @RequestBody CreateTeamCommand command) {
         return service.createTeam(command);
     }
@@ -37,9 +37,9 @@ public class TeamController {
 
     @PutMapping("/{id}/players")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPlayer(
+    public void signPlayer(
             @PathVariable("id") long id,
-            @Valid @RequestBody UpdateWithExistingPlayerCommand command) {
+            @RequestBody UpdateWithExistingPlayerCommand command) {
         service.signPlayer(id, command);
     }
 }

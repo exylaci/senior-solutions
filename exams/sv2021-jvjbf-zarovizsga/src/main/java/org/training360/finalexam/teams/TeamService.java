@@ -3,6 +3,7 @@ package org.training360.finalexam.teams;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.training360.finalexam.exceptions.NotFoundException;
 import org.training360.finalexam.players.*;
@@ -17,6 +18,7 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
     private final ModelMapper modelMapper;
+    private final PlayerService playerService;
 
     public List<TeamDTO> getTeams() {
         List<Team> teams = teamRepository.findAll();
@@ -35,10 +37,10 @@ public class TeamService {
     public TeamDTO addNewPlayer(long id, CreatePlayerCommand command) {
         Team team = findTeam(id);
 
-        if (playerRepository.playerOnThisPosition(id, command.getPosition()) < 2) {
+        if (hasThisKindVacancyPosition(id, command.getPosition())) {
             Player player = new Player(command.getName(), command.getBirthDate(), command.getPosition());
             player.setTeam(team);
-            playerRepository.save(player);
+            team.addPlayer(player);
         }
 
         return modelMapper.map(team, TeamDTO.class);
@@ -46,12 +48,13 @@ public class TeamService {
 
     @Transactional
     public void signPlayer(long id, UpdateWithExistingPlayerCommand command) {
-        Player player = playerRepository.getById(command.getPlayerId());
+        Player player = playerService.findPlayer(command.getPlayerId());
 
-        if (player.getTeam() == null &&
-                playerRepository.playerOnThisPosition(id, player.getPosition()) < 2) {
+        if (player.hasNoTeam() &&
+                hasThisKindVacancyPosition(id, player.getPosition())) {
             Team team = findTeam(id);
             player.setTeam(team);
+            team.addPlayer(player);
         }
     }
 
@@ -59,5 +62,9 @@ public class TeamService {
         return teamRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("teams/not-found", "There is no team with this id: " + id));
+    }
+
+    private boolean hasThisKindVacancyPosition(long teamId, PositionType position) {
+        return playerRepository.playerOnThisPosition(teamId, position) < 2;
     }
 }

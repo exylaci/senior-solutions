@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreatePlayerCommand {
-    @NotBlank
+    @NotBlank(message="Name cannot be blank!")
     private String name;
 
     private LocalDate birthDate;

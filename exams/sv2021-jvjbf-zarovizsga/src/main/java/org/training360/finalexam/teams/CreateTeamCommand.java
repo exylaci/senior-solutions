@@ -10,6 +10,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateTeamCommand {
-    @NotBlank
+    @NotBlank(message="Name cannot be blank")
     private String name;
 }
