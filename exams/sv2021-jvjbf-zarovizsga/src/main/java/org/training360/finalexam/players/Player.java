@@ -21,17 +21,20 @@ public class Player {
     @Column(name = "player_name")
     private String name;
 
-    private LocalDate birth;
+    @Column(name = "birth_date")
+    private LocalDate dateOfBirth;
 
     @Enumerated
+    @Column(name = "player_position")
     private PositionType position;
 
     @ManyToOne
+    @JoinColumn(name = "team_id")
     private Team team;
 
-    public Player(String name, LocalDate birth, PositionType position) {
+    public Player(String name, LocalDate dateOfBirth, PositionType position) {
         this.name = name;
-        this.birth = birth;
+        this.dateOfBirth = dateOfBirth;
         this.position = position;
     }
 }
