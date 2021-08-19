@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>gyaxi</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>fleamarket</module>
+        <module>therapy</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>

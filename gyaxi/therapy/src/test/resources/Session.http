@@ -1,0 +1,54 @@
+### list all sessions
+GET http://localhost:8080/api/sessions
+Accept: application/json
+
+
+### get one session
+GET http://localhost:8080/api/sessions/1
+Accept: application/json
+
+
+### create a new session
+POST http://localhost:8080/api/sessions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "therapist": "Dr. No",
+  "location": "Somewhere",
+  "startsAt": "2097-10-25T13:45:00"
+}
+
+### modify a session
+PUT http://localhost:8080/api/sessions/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "therapist": "Modified Name",
+  "location": "different place",
+  "startsAt": "2157-12-31T11:45:23"
+}
+
+
+### add a participant
+PUT http://localhost:8080/api/sessions/1/participants
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1
+}
+
+### remove a participant
+DELETE http://localhost:8080/api/sessions/1/participants
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1
+}
+
+### delete a session
+DELETE http://localhost:8080/api/sessions/1
+Content-Type: application/json

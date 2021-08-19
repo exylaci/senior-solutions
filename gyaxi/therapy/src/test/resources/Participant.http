@@ -1,0 +1,27 @@
+### list all paticipants
+GET http://localhost:8080/api/participants
+Accept: application/json
+
+
+### get one paticipant
+GET http://localhost:8080/api/participants/1
+Accept: application/json
+
+
+### create a new participant
+POST http://localhost:8080/api/participants?name=name of participant
+Accept: application/json
+
+
+### modify a participant
+PUT http://localhost:8080/api/participants/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name":"Modified Name"
+}
+
+### delete a participant
+DELETE http://localhost:8080/api/participants/1
+Content-Type: application/json
