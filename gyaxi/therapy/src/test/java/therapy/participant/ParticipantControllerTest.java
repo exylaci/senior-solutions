@@ -43,7 +43,6 @@ class ParticipantControllerTest {
                 null,
                 ParticipantDto.class);
         assertEquals("Name of Participant", result.getName());
-        assertEquals(null, result.getSession());
     }
 
     @Test

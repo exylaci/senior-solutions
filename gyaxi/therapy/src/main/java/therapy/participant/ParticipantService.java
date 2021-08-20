@@ -24,9 +24,9 @@ public class ParticipantService {
         return modelMapper.map(participants, participantsDTOListType);
     }
 
-    public ParticipantDto getParticipant(long id) {
+    public ParticipantWithSessionDto getParticipant(long id) {
         Participant participant = findParticipant(id);
-        return modelMapper.map(participant, ParticipantDto.class);
+        return modelMapper.map(participant, ParticipantWithSessionDto.class);
     }
 
     public ParticipantDto createParticipant(String name) {

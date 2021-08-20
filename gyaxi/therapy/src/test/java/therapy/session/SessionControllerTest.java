@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import therapy.participant.ParticipantDto;
+import therapy.participant.ParticipantWithSessionDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -221,7 +222,6 @@ class SessionControllerTest {
                 null,
                 ParticipantDto.class).getBody();
         assertEquals("1st Participant", resultParticipant.getName());
-        assertNull(resultParticipant.getSession());
     }
 
     @Test
@@ -304,5 +304,19 @@ class SessionControllerTest {
                 null,
                 SessionDto.class).getBody();
         assertEquals(1, result.getParticipants().size());
+    }
+
+    @Test
+    void getParticipantWithSession() {
+        template.put(
+                "/api/sessions/" + sessionDto2.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+        ParticipantWithSessionDto result = template.exchange(
+                "/api/participants/" + participant1.getId(),
+                HttpMethod.GET,
+                null,
+                ParticipantWithSessionDto.class).getBody();
+        assertEquals(participant1.getId(), result.getId());
+        assertEquals(sessionDto2.getId(), result.getSession().getId());
     }
 }

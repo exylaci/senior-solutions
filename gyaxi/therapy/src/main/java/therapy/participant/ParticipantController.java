@@ -28,7 +28,7 @@ public class ParticipantController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "get participant", description = "Get all information from one participant.")
-    public ParticipantDto getPlayer(
+    public ParticipantWithSessionDto getPlayer(
             @PathVariable("id") long id) {
         return service.getParticipant(id);
     }
