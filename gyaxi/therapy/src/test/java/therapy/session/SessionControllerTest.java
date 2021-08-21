@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
+import therapy.participant.Participant;
 import therapy.participant.ParticipantDto;
 import therapy.participant.ParticipantWithSessionDto;
 
@@ -235,6 +236,25 @@ class SessionControllerTest {
                 null,
                 SessionDto.class).getBody();
         assertThat(result.getParticipants())
+                .extracting(ParticipantDto::getName)
+                .containsExactly("1st Participant");
+    }
+
+    @Test
+    void addParticipantSameTwice() {
+        template.put(
+                "/api/sessions/" + sessionDto2.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+        template.put(
+                "/api/sessions/" + sessionDto2.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+        SessionDto result = template.exchange(
+                "/api/sessions/" + sessionDto2.getId(),
+                HttpMethod.GET,
+                null,
+                SessionDto.class).getBody();
+        assertThat(result.getParticipants())
+                .hasSize(1)
                 .extracting(ParticipantDto::getName)
                 .containsExactly("1st Participant");
     }
