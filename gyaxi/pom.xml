@@ -15,6 +15,7 @@
     <modules>
         <module>fleamarket</module>
         <module>therapy</module>
+        <module>fightergame</module>
     </modules>
 
     <properties>
