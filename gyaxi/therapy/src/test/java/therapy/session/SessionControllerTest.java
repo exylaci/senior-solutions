@@ -11,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import therapy.participant.Participant;
 import therapy.participant.ParticipantDto;
 import therapy.participant.ParticipantWithSessionDto;
 
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(statements = {"delete from participants", "delete from sessions"})
+@Sql(statements = {"delete from sessions_participants", "delete from participants", "delete from sessions"})
 class SessionControllerTest {
     @Autowired
     TestRestTemplate template;
@@ -135,6 +134,17 @@ class SessionControllerTest {
                 SessionDto.class).getBody();
         assertEquals("2nd therapist", result.getTherapist());
         assertEquals("1st Participant", result.getParticipants().get(0).getName());
+    }
+
+    @Test
+    void getSessionNotExists() {
+        Problem result = template.exchange(
+                "/api/sessions/0",
+                HttpMethod.GET,
+                null,
+                Problem.class).getBody();
+        assertEquals(Status.NOT_FOUND, result.getStatus());
+        assertEquals("There is no session with this id: 0", result.getDetail());
     }
 
     @Test
@@ -268,6 +278,7 @@ class SessionControllerTest {
                 Problem.class)
                 .getBody();
         assertEquals(Status.NOT_FOUND, result.getStatus());
+        assertEquals("There is no participant with this id: 0", result.getDetail());
     }
 
     @Test
@@ -310,6 +321,7 @@ class SessionControllerTest {
                 Problem.class)
                 .getBody();
         assertEquals(Status.NOT_FOUND, result.getStatus());
+        assertEquals("There is no participant with this id: 0", result.getDetail());
     }
 
     @Test
@@ -337,6 +349,29 @@ class SessionControllerTest {
                 null,
                 ParticipantWithSessionDto.class).getBody();
         assertEquals(participant1.getId(), result.getId());
-        assertEquals(sessionDto2.getId(), result.getSession().getId());
+        assertEquals(sessionDto2.getId(), result.getSessions().get(0).getId());
+
+        template.put(
+                "/api/sessions/" + sessionDto2.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+    }
+
+    @Test
+    void getParticipantWithTwoSessions() {
+        template.put(
+                "/api/sessions/" + sessionDto1.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+        template.put(
+                "/api/sessions/" + sessionDto2.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+        template.put(
+                "/api/sessions/" + sessionDto1.getId() + "/participants",
+                new AddParticipantCommand(participant1.getId()));
+        ParticipantWithSessionDto result = template.exchange(
+                "/api/participants/" + participant1.getId(),
+                HttpMethod.GET,
+                null,
+                ParticipantWithSessionDto.class).getBody();
+        assertEquals(2, result.getSessions().size());
     }
 }

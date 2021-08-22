@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(statements = {"delete from sessions", "delete from participants"})
+@Sql(statements = {"delete from sessions_participants", "delete from participants", "delete from sessions"})
 class ParticipantControllerTest {
     @Autowired
     TestRestTemplate template;
@@ -52,6 +52,7 @@ class ParticipantControllerTest {
                 null,
                 Problem.class);
         assertEquals(Status.BAD_REQUEST, result.getStatus());
+        assertEquals("Invalid participant name: ", result.getDetail());
     }
 
     @Test
@@ -61,6 +62,7 @@ class ParticipantControllerTest {
                 null,
                 Problem.class);
         assertEquals(Status.BAD_REQUEST, result.getStatus());
+        assertEquals("Invalid participant name: null", result.getDetail());
     }
 
     @Test

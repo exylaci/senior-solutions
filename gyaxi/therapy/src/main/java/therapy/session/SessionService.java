@@ -48,7 +48,7 @@ public class SessionService {
 
     @Transactional
     public SessionDto addParticipant(long id, AddParticipantCommand command) {
-        Session session = findSession(id);
+        Session session = findSessionWithParticipants(id);
         Participant participant = service.findParticipant(command.getId());
         session.addParticipant(participant);
         return modelMapper.map(session, SessionDto.class);
@@ -56,7 +56,7 @@ public class SessionService {
 
     @Transactional
     public SessionDto removeParticipant(long sessionId, long participantId) {
-        Session session = findSession(sessionId);
+        Session session = findSessionWithParticipants(sessionId);
         Participant participant = service.findParticipant(participantId);
         session.removeParticipant(participant);
         return modelMapper.map(session, SessionDto.class);
@@ -72,5 +72,13 @@ public class SessionService {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("/api/sessions", "Find session", "There is no session with this id: " + id));
+    }
+
+    private Session findSessionWithParticipants(long id) {
+        Session session = repository.findSessionWithParticipants(id);
+        if (session.getId() == null) {
+            throw new NotFoundException("/api/sessions", "Find session", "There is no session with this id: " + id);
+        }
+        return session;
     }
 }

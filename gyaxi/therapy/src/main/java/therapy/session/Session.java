@@ -26,7 +26,7 @@ public class Session {
     private String location;
     private LocalDateTime startsAt;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "sessions", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Set<Participant> participants;
 
@@ -41,7 +41,7 @@ public class Session {
             participants = new HashSet<>();
         }
         participants.add(participant);
-        participant.setSession(this);
+        participant.addSession(this);
     }
 
     public void removeParticipant(Participant participant) {
@@ -49,6 +49,6 @@ public class Session {
             throw new NotFoundException("/api/sessions", "remove a participant", "Participant list is empty!");
         }
         participants.remove(participant);
-        participant.setSession(null);
+        participant.removeSession(this);
     }
 }
