@@ -1,5 +1,6 @@
 package fightergame.fighter;
 
+import fightergame.contest.Result;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,11 +24,15 @@ public class Fighter {
     private Integer damage;
 
     @Embedded
-    private Score score;
+    private Score score = new Score();
 
     public Fighter(String name, Integer vitality, Integer damage) {
         this.name = name;
         this.vitality = vitality;
         this.damage = damage;
+    }
+
+    public void increaseScore(Result result) {
+        score.increaseScore(result);
     }
 }

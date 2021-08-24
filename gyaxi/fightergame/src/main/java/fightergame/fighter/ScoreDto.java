@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FighterDto {
-    private Long id;
-    private String name;
-    private Integer vitality;
-    private Integer damage;
-    private ScoreDto score;
+public class ScoreDto {
+    private Integer win;
+    private Integer draw;
+    private Integer lose;
 }

@@ -40,3 +40,4 @@ Hozd létre a `ContestController`-t, amiben az alábbi műveleteket kell támoga
 - meccs indítása (várja a két harcos ID-ját, és térjen vissza a lejátszott meccs adataival)
 - összes meccs listázása
 - meccs keresése ID alapján
+- a lejátszott meccsek alapján kik állhatnak fel a képzeletbéli dobogó 3 fokára, ha egy győzelem 3 pontot és egy döntetlen pedig 1-1 pontot ér?

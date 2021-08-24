@@ -41,6 +41,10 @@ public class FighterService {
 
     @Transactional
     public FighterDto updateFighter(long id, CreateUpdateFighterCommand command) {
+        Fighter temp = repository.findFighter(command.getName());
+        if (temp != null || temp.getId() != id) {
+            throw new BadRequest("/api/fighters/duplicate", "Create fighter", "A fighter with this name already exists!");
+        }
         Fighter fighter = findFighter(id);
         fighter.setName(command.getName());
         fighter.setVitality(command.getVitality());
@@ -56,7 +60,7 @@ public class FighterService {
         }
     }
 
-    private Fighter findFighter(long id) {
+    public Fighter findFighter(long id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new NotFound("/url/fighters/not-found", "Find fighter", "There is no fighter with this id: " + id));
