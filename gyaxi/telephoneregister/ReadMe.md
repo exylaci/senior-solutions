@@ -23,18 +23,19 @@
 
 ### Lekérdezések:
 A teljes lista
-    * csak a nevek
-    * minden adat
+* csak a nevek
+* minden adat
 Keresések:
-    * teljes névre,
-    * név töredékre,
-    * telefonszám részletre,
-    * név és telefonszám típus töredékek,
-    * email cím töredék,
-    * cím töredék,
-    * megjegyzés  töredék
-    alapján.
+* teljes névre,
+* név töredékre,
+* telefonszám részletre,
+* név és telefonszám típus töredékek,
+* email cím töredék,
+* cím töredék,
+* megjegyzés töredék alapján.
       
 ## Sprint 2
-*arcképek hozzárendelése személyekhez
-*rögzítés, utolsó módosítás időpontok 
+Fejlesztési ötletek:  
+* arcképek hozzárendelése személyekhez
+* rögzítés, utolsó módosítás időpontok
+(Részletes megfogalmazása később.)
