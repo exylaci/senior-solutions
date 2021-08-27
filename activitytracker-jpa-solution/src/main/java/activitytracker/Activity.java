@@ -17,12 +17,12 @@ public class Activity {             //Entitás osztály
     @TableGenerator(name = "activity_gen", table = "act_id_gen", pkColumnName = "id_gen", valueColumnName = "id_val",
             pkColumnValue = "act_gen", initialValue = 10000, allocationSize = 100)
     @GeneratedValue(generator = "actitvity_gen") // a fenti act_gen tábla alapján oszt értéket
+//    @GeneratedValue(generator = "activity_gen") //az "activity_gen" tábla alapján ossza a generált értékeket
 //    @GeneratedValue(strategy = GenerationType.TABLE) //általa "kitalált" adatbázis tábla alapján oszt értéket
 //    @GeneratedValue(strategy = GenerationType.IDENTITY) //az adatbázis kezelő AUTO_INCREMENT-tel generálja az értékét
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE) //az MYSQL sequencia generátora generálja az értékét
-//    @GeneratedValue(generator = "activity_gen") //az "activity_gen" tábla alapján ossza a generált értékeket
 //    @SequenceGenerator(name="activity_gen", sequenceName = "act_seq") //a generáló tábla létrehozása (mysql nem támogatja)
-    //ehhez kell egy adattábla is: CREATE SEQUENCE activity-geg MINVALUE 1 START WITH 1 INCREMENT BY 50;
+    //ehhez kell egy adattábla is: CREATE SEQUENCE activity-gen MINVALUE 1 START WITH 1 INCREMENT BY 50;
     @Id                             //Ez lesz a PRIMARY KEY
     private Long id;
 
@@ -46,7 +46,7 @@ public class Activity {             //Entitás osztály
     private List<String> labels = new ArrayList<>();
 
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "points", joinColumns = @JoinColumn(name = "act_id"))   //tábla neve, külső kulcs mező neve
     @AttributeOverride(name = "time", column = @Column(name = "date"))              // atribútum név -> mező név
     @AttributeOverride(name = "lat", column = @Column(name = "lattitude"))          // atribútum név -> mező név
@@ -61,7 +61,7 @@ public class Activity {             //Entitás osztály
     // @Column(name="érték_mező_neve")  //Amikor csak "egyszerű" burkoló osztály az érték a Map-ben.
     private Map<String, City> cities;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Guide guide;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "activity", orphanRemoval = true)

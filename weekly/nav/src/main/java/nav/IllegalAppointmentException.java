@@ -12,6 +12,5 @@ public class IllegalAppointmentException extends AbstractThrowableProblem {
                 URI.create("/api/appointment"),
                 "Illegal appointment data",
                 Status.NOT_ACCEPTABLE,
-                message);
-    }
+                message);    }
 }

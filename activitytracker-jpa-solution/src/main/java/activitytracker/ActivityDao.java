@@ -62,8 +62,8 @@ public class ActivityDao {
 
 //        Activity merged = manager.merge(activity);                  //nem javasolt mód, inkább a setterekkel állítsuk
 //        merged.setDesc("modified by merge - " + activity.getDesc());
-        Activity updated = find(activity.getId());
 
+        Activity updated = manager.find(Activity.class, activity.getId());  //helyette find után setterekkel
         updated.setDesc(activity.getDesc());
         updated.setDuration(activity.getDuration());
 

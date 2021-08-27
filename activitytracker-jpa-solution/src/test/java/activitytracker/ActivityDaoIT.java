@@ -90,6 +90,7 @@ class ActivityDaoIT {
     @Test
     void testUpdate() throws InterruptedException {
         activity1.setDesc("modified description");
+        Thread.sleep(1000);
 
         dao.update(activity1);
 
