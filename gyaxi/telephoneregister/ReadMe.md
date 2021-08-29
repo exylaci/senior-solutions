@@ -35,7 +35,7 @@ Keresések:
 * megjegyzés töredék alapján.
       
 ## Sprint 2
-Fejlesztési ötletek:  
+Fejlesztési ötletek: (Részletes megfogalmazása később.)
 * arcképek hozzárendelése személyekhez
 * rögzítés, utolsó módosítás időpontok
-(Részletes megfogalmazása később.)
+* szöletés és név napok
