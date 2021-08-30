@@ -29,13 +29,13 @@ public class PersonTest {
                 new CreatePersonCommand(
                         "John Doe",
                         new AddPhoneCommand("mobile", "+1234"),
-                        new AddAddressCommand("home", "chez moi"),
+                        new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
                 PersonDto.class);
         assertEquals("John Doe", result.getName());
         assertEquals("+1234", result.getPhones().get("mobile"));
-        assertEquals("chez moi", result.getAddresses().get("home"));
+        assertEquals("chez moi", result.getAddresses().get(AddressType.HOME));
         assertEquals("a@b.cd", result.getEmails().get(0));
         assertEquals("no comment", result.getComment());
     }
@@ -62,12 +62,12 @@ public class PersonTest {
                 new CreatePersonCommand(
                         "John Doe",
                         new AddPhoneCommand("", ""),
-                        new AddAddressCommand("home", "chez moi"),
+                        new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand(""),
                         ""),
                 PersonDto.class);
         assertEquals("John Doe", result.getName());
-        assertEquals("chez moi", result.getAddresses().get("home"));
+        assertEquals("chez moi", result.getAddresses().get(AddressType.HOME));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class PersonTest {
                 new CreatePersonCommand(
                         "John Doe",
                         new AddPhoneCommand("mobile", "+1234"),
-                        new AddAddressCommand("home", "chez moi"),
+                        new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
                 PersonDto.class).getId();
@@ -119,7 +119,7 @@ public class PersonTest {
 
         assertEquals("John Doe", result.getName());
         assertEquals("+1234", result.getPhones().get("mobile"));
-        assertEquals("chez moi", result.getAddresses().get("home"));
+        assertEquals("chez moi", result.getAddresses().get(AddressType.HOME));
         assertEquals("a@b.cd", result.getEmails().get(0));
         assertEquals("no comment", result.getComment());
     }
@@ -131,7 +131,7 @@ public class PersonTest {
                 new CreatePersonCommand(
                         "John Doe",
                         new AddPhoneCommand("mobile", "+1234"),
-                        new AddAddressCommand("home", "chez moi"),
+                        new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
                 PersonDto.class).getId();
@@ -140,7 +140,7 @@ public class PersonTest {
                 new CreatePersonCommand(
                         "Jane Doe",
                         new AddPhoneCommand("mobile", "+1234"),
-                        new AddAddressCommand("home", "chez moi"),
+                        new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
                 PersonDto.class).getId();
@@ -199,13 +199,13 @@ public class PersonTest {
                 PersonDto.class).getId();
         template.put(
                 "/api/persons/" + id + "/addresses",
-                new AddAddressCommand("home", "chez moi"));
+                new AddAddressCommand("HOME", "chez moi"));
         template.put(
                 "/api/persons/" + id + "/addresses",
-                new AddAddressCommand("home", "over there"));
+                new AddAddressCommand("HOME", "over there"));
         template.put(
                 "/api/persons/" + id + "/addresses",
-                new AddAddressCommand("work place", "office building"));
+                new AddAddressCommand("WORKPLACE", "office building"));
 
         PersonDto result = template.exchange(
                 "/api/persons/" + id,
@@ -213,8 +213,8 @@ public class PersonTest {
                 null,
                 PersonDto.class).getBody();
         assertEquals("John Doe", result.getName());
-        assertEquals("over there", result.getAddresses().get("home"));
-        assertEquals("office building", result.getAddresses().get("work place"));
+        assertEquals("over there", result.getAddresses().get(AddressType.HOME));
+        assertEquals("office building", result.getAddresses().get(AddressType.WORKPLACE));
     }
 
     @Test

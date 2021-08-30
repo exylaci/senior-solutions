@@ -14,7 +14,7 @@ public class PersonDto {
     private Long id;
     private String name;
     private Map<String, String> phones;
-    private Map<String, String> addresses;
+    private Map<AddressType, String> addresses;
     private List<String> emails;
     private String comment;
 }

@@ -33,8 +33,9 @@ public class Person {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "person_id"))
     @MapKeyColumn(name = "address_type")
+    @MapKeyEnumerated(EnumType.STRING)
     @Column(name = "address")
-    private Map<String, String> addresses;
+    private Map<AddressType, String> addresses;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "emails", joinColumns = @JoinColumn(name = "person_id"))
@@ -58,13 +59,19 @@ public class Person {
     }
 
     protected void addAddress(AddAddressCommand command) {
-        if (command.getAddressType().isBlank() || command.getAddress().isBlank()) {
+        if (command.getAddressType().isBlank()
+                || command.getAddress().isBlank()
+//                ||
+//                !Arrays.asList(AddressType.values()).contains(command.getAddressType())
+        ) {
             return;
         }
         if (addresses == null) {
             addresses = new HashMap<>();
         }
-        addresses.put(command.getAddressType(), command.getAddress());
+        addresses.put(
+                AddressType.valueOf(command.getAddressType()),
+                command.getAddress());
     }
 
     protected void addEmail(AddEmailCommand command) {
