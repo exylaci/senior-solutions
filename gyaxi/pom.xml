@@ -16,6 +16,7 @@
         <module>fleamarket</module>
         <module>therapy</module>
         <module>fightergame</module>
+        <module>telephoneregister</module>
         <module>bank</module>
     </modules>
     <dependencies>
