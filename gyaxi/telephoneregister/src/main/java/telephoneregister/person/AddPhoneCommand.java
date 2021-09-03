@@ -11,7 +11,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AddPhoneCommand {
     @NotBlank
-    private String phoneNumberType;
+    private String phoneNumberTypeName;
+    @NotBlank
+    private String accessType;
     @NotBlank
     private String phoneNumber;
 }

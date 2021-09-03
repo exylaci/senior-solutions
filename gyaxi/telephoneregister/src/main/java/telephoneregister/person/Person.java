@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import telephoneregister.exceptions.MissingDataException;
+import telephoneregister.number.PhoneNumber;
+import telephoneregister.numbertype.NumberType;
 
 import javax.persistence.*;
 import java.util.*;
@@ -25,10 +27,9 @@ public class Person {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "phones", joinColumns = @JoinColumn(name = "person_id"))
-    @MapKeyColumn(name = "phone_number_type")
-    @Column(name = "phone_number")
-    private Map<String, String> phones;
-
+    @MapKeyJoinColumn(name = "phone_number_type_id")
+//    @Column(name = "phone_number")        //ha a Value egyszerű burkoló osztály lenne
+    private Map<NumberType, PhoneNumber> phones;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "person_id"))
@@ -48,22 +49,17 @@ public class Person {
         this.name = name;
     }
 
-    protected void addPhone(AddPhoneCommand command) {
-        if (command.getPhoneNumberType().isBlank() || command.getPhoneNumber().isBlank()) {
-            return;
-        }
+    protected void addPhone(NumberType numberType, AddPhoneCommand command) {
+
         if (phones == null) {
             phones = new HashMap<>();
         }
-        phones.put(command.getPhoneNumberType(), command.getPhoneNumber());
+
+        phones.put(numberType, new PhoneNumber(command.getAccessType(),command.getPhoneNumber()));
     }
 
     protected void addAddress(AddAddressCommand command) {
-        if (command.getAddressType().isBlank()
-                || command.getAddress().isBlank()
-//                ||
-//                !Arrays.asList(AddressType.values()).contains(command.getAddressType())
-        ) {
+        if (command.getAddressType().isBlank() || command.getAddress().isBlank()) {
             return;
         }
         if (addresses == null) {

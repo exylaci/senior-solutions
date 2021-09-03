@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import telephoneregister.exceptions.NotFoundException;
+import telephoneregister.numbertype.NumberType;
+import telephoneregister.numbertype.NumberTypeService;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PersonService {
     private final PersonRepository repository;
+    private final NumberTypeService numberTypeService;
     private final ModelMapper modelMapper;
 
     public List<String> getAllPersonsNames() {
@@ -23,9 +26,12 @@ public class PersonService {
         return modelMapper.map(result, PersonDto.class);
     }
 
+    @Transactional
     public PersonDto createPerson(CreatePersonCommand command) {
+        NumberType numberType = numberTypeService.findNumberType(command.getAddPhoneCommand().getPhoneNumberTypeName());
+//        NumberType numberType = service.findNumberType(command.getAddPhoneCommand().getPhoneNumberTypeId());
         Person person = new Person(command.getName());
-        person.addPhone(command.getAddPhoneCommand());
+        person.addPhone(numberType, command.getAddPhoneCommand());
         person.addAddress(command.getAddAddressCommand());
         person.addEmail(command.getAddEmailCommand());
         person.setComment(command.getComment());
@@ -36,9 +42,10 @@ public class PersonService {
 
     @Transactional
     public PersonDto addPhone(long id, AddPhoneCommand command) {
+        NumberType numberType = numberTypeService.findNumberType(command.getPhoneNumberTypeName());
         Person person = repository.findById(id).orElseThrow(() -> new NotFoundException(
                 "/api/person", "Add phone number", "Cannot find person with this id: " + id));
-        person.addPhone(command);
+        person.addPhone(numberType, command);
         return modelMapper.map(person, PersonDto.class);
     }
 

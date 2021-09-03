@@ -1,5 +1,7 @@
 package telephoneregister.person;
 
+import lombok.AllArgsConstructor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +12,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
+import telephoneregister.number.AccessType;
+import telephoneregister.numbertype.NumberType;
+import telephoneregister.numbertype.NumberTypeDto;
+import telephoneregister.numbertype.NumberTypeService;
 
 import java.util.List;
 
@@ -17,10 +23,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(statements = {"delete from phones", "delete from addresses", "delete from emails", "delete from persons"})
+@Sql(statements = {"delete from phones", "delete from addresses", "delete from emails", "delete from persons", "delete from number_types"})
 public class PersonTest {
     @Autowired
     TestRestTemplate template;
+
+    @Autowired
+    NumberTypeService service;
+
+    NumberType numberType;
+
+    @BeforeEach
+    void init() {
+        Long id = template.postForObject(
+                "/api/number-types?numbertype=mobile",
+                null,
+                NumberTypeDto.class).getId();
+        numberType = service.findNumberType(id);
+    }
 
     @Test
     void testAddNewPerson() {
@@ -28,15 +48,16 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("mobile", "+1234"),
+                        new AddPhoneCommand("mobile", "PRIVATE", "+1234"),
                         new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
                 PersonDto.class);
         assertEquals("John Doe", result.getName());
-        assertEquals("+1234", result.getPhones().get("mobile"));
+        assertEquals(numberType, result.getPhones());
+        assertEquals("+1234", result.getPhones().get(numberType));
         assertEquals("chez moi", result.getAddresses().get(AddressType.HOME));
-        assertEquals("a@b.cd", result.getEmails().get(0));
+        assertEquals("a@b.cd", result.getEmails());
         assertEquals("no comment", result.getComment());
     }
 
@@ -46,7 +67,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("mobile", "+1234"),
+                        new AddPhoneCommand("mobile", "PRIVATE", "+1234"),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand(""),
                         ""),
@@ -61,7 +82,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("", ""),
+                        new AddPhoneCommand("", "", ""),
                         new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand(""),
                         ""),
@@ -76,7 +97,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("", ""),
+                        new AddPhoneCommand("", "", ""),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand("a@b.cd"),
                         ""),
@@ -91,7 +112,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("", ""),
+                        new AddPhoneCommand("", "", ""),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand(""),
                         "no comment"),
@@ -105,7 +126,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("mobile", "+1234"),
+                        new AddPhoneCommand("mobile", "PRIVATE", "+1234"),
                         new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
@@ -130,7 +151,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("mobile", "+1234"),
+                        new AddPhoneCommand("mobile", "PRIVATE", "+1234"),
                         new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
@@ -139,7 +160,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "Jane Doe",
-                        new AddPhoneCommand("mobile", "+1234"),
+                        new AddPhoneCommand("mobile", "PRIVATE", "+1234"),
                         new AddAddressCommand("HOME", "chez moi"),
                         new AddEmailCommand("a@b.cd"),
                         "no comment"),
@@ -161,20 +182,20 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("", ""),
+                        new AddPhoneCommand("", "", ""),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand("a@b.cd"),
                         ""),
                 PersonDto.class).getId();
         template.put(
                 "/api/persons/" + id + "/phones",
-                new AddPhoneCommand("mobile", "+1234"));
+                new AddPhoneCommand("mobile", "PRIVATE", "+1234"));
         template.put(
                 "/api/persons/" + id + "/phones",
-                new AddPhoneCommand("mobile", "+4321"));
+                new AddPhoneCommand("mobile", "COMPANY", "+4321"));
         template.put(
                 "/api/persons/" + id + "/phones",
-                new AddPhoneCommand("fix line", "0"));
+                new AddPhoneCommand("fix line", "PRIVATE", "0"));
 
         PersonDto result = template.exchange(
                 "/api/persons/" + id,
@@ -192,7 +213,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("", ""),
+                        new AddPhoneCommand("", "", ""),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand("a@b.cd"),
                         ""),
@@ -223,7 +244,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("fix line", "0"),
+                        new AddPhoneCommand("fix line", "PRIVATE", "0"),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand(""),
                         ""),
@@ -253,7 +274,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("fix line", "0"),
+                        new AddPhoneCommand("fix line", "PRIVATE", "0"),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand(""),
                         ""),
@@ -280,7 +301,7 @@ public class PersonTest {
                 "/api/persons",
                 new CreatePersonCommand(
                         "John Doe",
-                        new AddPhoneCommand("", ""),
+                        new AddPhoneCommand("", "", ""),
                         new AddAddressCommand("", ""),
                         new AddEmailCommand("invalid@emailaddress"),
                         ""),
