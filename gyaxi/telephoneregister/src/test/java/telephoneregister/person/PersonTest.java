@@ -316,5 +316,4 @@ public class PersonTest {
         assertEquals(0, result.size());
         assertEquals(Status.BAD_REQUEST, problem.getStatus());
     }
-
 }
