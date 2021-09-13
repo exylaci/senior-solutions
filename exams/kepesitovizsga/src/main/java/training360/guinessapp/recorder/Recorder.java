@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,4 +20,10 @@ public class Recorder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "recorder_name")
+    private String name;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 }
