@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import training360.guinessapp.dto.RecorderCreateCommand;
 import training360.guinessapp.dto.RecorderDto;
+import training360.guinessapp.dto.RecorderShortDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,5 +23,11 @@ public class RecorderController {
     public RecorderDto createRecorder(
             @Valid @RequestBody RecorderCreateCommand command) {
         return service.createRecorder(command);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<RecorderShortDto> getRecorders() {
+        return service.getRecorders();
     }
 }

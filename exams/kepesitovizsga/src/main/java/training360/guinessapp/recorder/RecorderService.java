@@ -6,6 +6,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import training360.guinessapp.dto.RecorderCreateCommand;
 import training360.guinessapp.dto.RecorderDto;
+import training360.guinessapp.dto.RecorderShortDto;
 
 import javax.transaction.Transactional;
 import java.lang.reflect.Type;
@@ -23,5 +24,10 @@ public class RecorderService {
         recorder.setDateOfBirth(command.getDateOfBirth());
         repository.save(recorder);
         return modelMapper.map(recorder, RecorderDto.class);
+    }
+
+    public List<RecorderShortDto> getRecorders() {
+        return modelMapper.map(repository.getRecordersFiltered(), new TypeToken<List<RecorderShortDto>>() {
+        }.getType());
     }
 }
