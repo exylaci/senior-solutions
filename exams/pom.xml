@@ -16,6 +16,7 @@
         <module>musicstore</module>
         <module>cinema</module>
         <module>sv2021-jvjbf-zarovizsga</module>
+        <module>kepesitovizsga</module>
     </modules>
 
     <properties>
