@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorldRecordDto {
+    private Long id;
     private String description;
     private Double value;
     private String unitOfMeasure;

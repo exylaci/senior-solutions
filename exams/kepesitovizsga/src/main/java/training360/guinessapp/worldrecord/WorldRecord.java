@@ -2,14 +2,11 @@ package training360.guinessapp.worldrecord;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import training360.guinessapp.recorder.Recorder;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "world_record")
@@ -24,7 +21,7 @@ public class WorldRecord {
     @Column(name = "description_of_worldrecord")
     private String description;
 
-    @Column(name = "value")
+    @Column(name = "value_of_worldrecord")
     private Double value;
 
     @Column(name = "unit_of_measure")
