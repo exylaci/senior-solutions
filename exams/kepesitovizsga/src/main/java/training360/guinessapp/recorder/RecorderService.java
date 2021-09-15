@@ -8,8 +8,6 @@ import training360.guinessapp.dto.RecorderCreateCommand;
 import training360.guinessapp.dto.RecorderDto;
 import training360.guinessapp.dto.RecorderShortDto;
 
-import javax.transaction.Transactional;
-import java.lang.reflect.Type;
 import java.util.List;
 
 @Service

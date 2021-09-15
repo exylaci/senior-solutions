@@ -1,0 +1,23 @@
+### Rekorder mentése
+
+POST http://localhost:8080/api/recorders
+Content-Type: application/json
+
+{
+  "name": "Ben",
+  "dateOfBirth": "1999-09-09"
+}
+
+### Rekorder mentése - hibakezelés
+
+POST http://localhost:8080/api/recorders
+Content-Type: application/json
+
+{
+  "name": "",
+  "dateOfBirth": "1999-09-09"
+}
+
+### Bizonyos rekorderek listázása
+
+GET http://localhost:8080/api/recorders

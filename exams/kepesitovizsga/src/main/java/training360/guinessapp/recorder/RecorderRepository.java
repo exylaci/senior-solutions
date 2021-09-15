@@ -2,7 +2,6 @@ package training360.guinessapp.recorder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import training360.guinessapp.dto.RecorderShortDto;
 
 import java.util.List;
 

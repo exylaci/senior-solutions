@@ -1,0 +1,35 @@
+### Világrekord mentése
+
+POST http://localhost:8080/api/worldrecord
+Content-Type: application/json
+
+{
+    "description": "Largest pizza",
+    "value": 5.78,
+    "unitOfMeasure": "meter",
+    "dateOfRecord": "2001-11-11",
+    "recorderId": 1
+}
+
+### Világrekord mentése - hibakezelés
+
+POST http://localhost:8080/api/worldrecords
+Content-Type: application/json
+
+{
+  "description": "",
+  "value": 5.78,
+  "unitOfMeasure": "meter",
+  "dateOfRecord": "2001-11-11",
+  "recorderId": 1
+}
+
+### Rekorder megdönt egy világrekordot (18 pont)
+
+PUT http://localhost:8080/api/worldrecords/1/beatrecords
+Content-Type: application/json
+
+{
+  "recorderId": 2,
+  "newRecord": 6.78
+}
