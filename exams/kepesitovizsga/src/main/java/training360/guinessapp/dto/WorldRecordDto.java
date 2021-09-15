@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecorderDto {
-    private Long id;
-    private String name;
-    private LocalDate dateOfBirth;
+public class WorldRecordDto {
+    private String description;
+    private Double value;
+    private String unitOfMeasure;
+    private LocalDate dateOfRecord;
+    private String recorderName;
 }
