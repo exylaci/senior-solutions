@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import training360.guinessapp.dto.WorldRecordCreateCommand;
+import training360.guinessapp.dto.WorldRecordDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,4 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 public class WorldRecordController {
     private final WorldRecordService service;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public WorldRecordDto createWorldRecord(
+            @Valid @RequestBody WorldRecordCreateCommand command) {
+        return service.createWorldRecord(command);
+    }
 }

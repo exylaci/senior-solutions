@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@Sql(statements = {"delete from world_record", "delete from recorder"})
+@Sql(statements = {"delete from world_record", "delete from recorder"})
 public class RecorderSavingIT {
 
     @Autowired

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import training360.guinessapp.worldrecord.WorldRecord;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,4 +27,8 @@ public class Recorder {
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+
+    @OneToMany(mappedBy = "recorder", cascade = CascadeType.PERSIST)
+    @EqualsAndHashCode.Exclude
+    private Set<WorldRecord> worldRecords;
 }

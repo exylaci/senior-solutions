@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.time.LocalDate;
@@ -12,9 +14,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorldRecordCreateCommand {
+    @NotBlank(message = "must not be blank")
     private String description;
+
+    @NotNull(message = "must not be null")
     private Double value;
+
+    @NotBlank(message = "must not be blank")
     private String unitOfMeasure;
+
+    @NotNull(message = "must not be null")
     private LocalDate dateOfRecord;
+
+    @NotNull(message = "must not be null")
     private Long recorderId;
 }

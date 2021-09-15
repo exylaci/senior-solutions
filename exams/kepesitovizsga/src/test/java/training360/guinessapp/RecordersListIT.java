@@ -18,8 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@Sql(statements = {"delete from world_record", "delete from recorder"})
-@Sql(statements = {"delete from recorder"})
+@Sql(statements = {"delete from world_record", "delete from recorder"})
 public class RecordersListIT {
 
     @Autowired
