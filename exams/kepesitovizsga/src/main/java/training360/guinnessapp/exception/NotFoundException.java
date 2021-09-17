@@ -1,4 +1,4 @@
-package training360.guinessapp.exception;
+package training360.guinnessapp.exception;
 
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;

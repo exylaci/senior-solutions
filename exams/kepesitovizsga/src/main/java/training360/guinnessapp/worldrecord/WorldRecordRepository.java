@@ -1,4 +1,4 @@
-package training360.guinessapp.worldrecord;
+package training360.guinnessapp.worldrecord;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

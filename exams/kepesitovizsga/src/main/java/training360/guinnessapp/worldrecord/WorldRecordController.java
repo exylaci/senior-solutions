@@ -1,14 +1,14 @@
-package training360.guinessapp.worldrecord;
+package training360.guinnessapp.worldrecord;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import training360.guinessapp.dto.BeatWorldRecordCommand;
-import training360.guinessapp.dto.BeatWorldRecordDto;
-import training360.guinessapp.dto.WorldRecordCreateCommand;
-import training360.guinessapp.dto.WorldRecordDto;
+import training360.guinnessapp.dto.BeatWorldRecordCommand;
+import training360.guinnessapp.dto.BeatWorldRecordDto;
+import training360.guinnessapp.dto.WorldRecordCreateCommand;
+import training360.guinnessapp.dto.WorldRecordDto;
 
 import javax.validation.Valid;
 

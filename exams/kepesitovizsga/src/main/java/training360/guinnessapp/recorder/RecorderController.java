@@ -1,13 +1,13 @@
-package training360.guinessapp.recorder;
+package training360.guinnessapp.recorder;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import training360.guinessapp.dto.RecorderCreateCommand;
-import training360.guinessapp.dto.RecorderDto;
-import training360.guinessapp.dto.RecorderShortDto;
+import training360.guinnessapp.dto.RecorderCreateCommand;
+import training360.guinnessapp.dto.RecorderDto;
+import training360.guinnessapp.dto.RecorderShortDto;
 
 import javax.validation.Valid;
 import java.util.List;

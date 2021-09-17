@@ -1,4 +1,4 @@
-package training360.guinessapp.dto;
+package training360.guinnessapp.dto;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;

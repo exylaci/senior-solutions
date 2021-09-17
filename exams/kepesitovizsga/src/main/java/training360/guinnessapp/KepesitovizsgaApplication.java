@@ -1,4 +1,4 @@
-package training360.guinessapp;
+package training360.guinnessapp;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

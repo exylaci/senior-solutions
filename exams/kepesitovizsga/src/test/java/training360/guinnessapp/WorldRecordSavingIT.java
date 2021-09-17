@@ -1,4 +1,4 @@
-package training360.guinessapp;
+package training360.guinnessapp;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,10 +8,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import training360.guinessapp.dto.RecorderCreateCommand;
-import training360.guinessapp.dto.RecorderDto;
-import training360.guinessapp.dto.WorldRecordCreateCommand;
-import training360.guinessapp.dto.WorldRecordDto;
+import training360.guinnessapp.dto.RecorderCreateCommand;
+import training360.guinnessapp.dto.RecorderDto;
+import training360.guinnessapp.dto.WorldRecordCreateCommand;
+import training360.guinnessapp.dto.WorldRecordDto;
 
 import java.time.LocalDate;
 import java.util.List;

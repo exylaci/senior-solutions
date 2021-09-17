@@ -1,16 +1,16 @@
-package training360.guinessapp.worldrecord;
+package training360.guinnessapp.worldrecord;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import training360.guinessapp.dto.BeatWorldRecordCommand;
-import training360.guinessapp.dto.BeatWorldRecordDto;
-import training360.guinessapp.dto.WorldRecordCreateCommand;
-import training360.guinessapp.dto.WorldRecordDto;
-import training360.guinessapp.exception.BadRequestException;
-import training360.guinessapp.exception.NotFoundException;
-import training360.guinessapp.recorder.Recorder;
-import training360.guinessapp.recorder.RecorderRepository;
+import training360.guinnessapp.dto.BeatWorldRecordCommand;
+import training360.guinnessapp.dto.BeatWorldRecordDto;
+import training360.guinnessapp.dto.WorldRecordCreateCommand;
+import training360.guinnessapp.dto.WorldRecordDto;
+import training360.guinnessapp.exception.BadRequestException;
+import training360.guinnessapp.exception.NotFoundException;
+import training360.guinnessapp.recorder.Recorder;
+import training360.guinnessapp.recorder.RecorderRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;

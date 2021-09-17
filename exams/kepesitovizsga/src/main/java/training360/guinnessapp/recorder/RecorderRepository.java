@@ -1,4 +1,4 @@
-package training360.guinessapp.recorder;
+package training360.guinnessapp.recorder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,9 +1,9 @@
-package training360.guinessapp.worldrecord;
+package training360.guinnessapp.worldrecord;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import training360.guinessapp.recorder.Recorder;
+import training360.guinnessapp.recorder.Recorder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
