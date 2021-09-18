@@ -1,4 +1,4 @@
-package bank.exceptions;
+package bankremake.exceptions;
 
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;

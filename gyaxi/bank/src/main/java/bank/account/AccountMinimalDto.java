@@ -1,4 +1,4 @@
-package bank.account;
+package bankremake.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountsDto {
-    private String name;
-    private String number;
-    private BigDecimal amount;
+public class AccountMinimalDto {
+    private String customerName;
+    private String accountNumber;
+    private BigDecimal balance;
 }

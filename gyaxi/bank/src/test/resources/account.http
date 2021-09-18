@@ -1,0 +1,27 @@
+### list of the all accounts
+GET http://localhost:8080/api/accounts
+Accept: application/json
+
+### get the data of one account
+GET http://localhost:8080/api/accounts/1
+Accept: application/json
+
+### create a new account
+POST http://localhost:8080/api/accounts?name=Jhony
+Accept: application/json
+
+### create a new account invalid data
+POST http://localhost:8080/api/accounts?name=
+Accept: application/json
+
+### create a new account invalid data
+POST http://localhost:8080/api/accounts?notexistattrib=Jhony
+Accept: application/json
+
+### update an account
+PUT http://localhost:8080/api/accounts/1?name=Jimy
+Accept: application/json
+
+### delete an account
+DELETE http://localhost:8080/api/accounts/1
+Accept: application/json

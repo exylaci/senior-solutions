@@ -1,10 +1,11 @@
-package bank.account;
+package bankremake.account;
 
+import bankremake.exceptions.BadRequestException;
+import bankremake.transaction.Transaction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import bank.transaction.Transaction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,15 +23,32 @@ public class Account {
     private Long id;
 
     @Column(name = "customer_name")
-    private String name;
+    private String customerName;
+
     @Column(name = "account_number")
-    private String number;
+    private String accountNumber;
 
-    private BigDecimal amount = BigDecimal.ZERO;
+    @Column(name = "balance")
+    private BigDecimal balance = BigDecimal.ZERO;
 
-    private LocalDate opened = LocalDate.now();
+    @Column(name = "deleted_account")
+    private boolean deletedAccount = false;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
+    @Column(name = "open_date")
+    private LocalDate openDate = LocalDate.now();
+
+    @OneToMany(mappedBy = "accountSource", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Set<Transaction> transactions;
+
+    public Account(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void increaseBalance(BigDecimal amount) {
+        if (amount.signum() < 0 && balance.compareTo(amount.negate()) < 0) {
+            throw new BadRequestException("/api/transaction", "create transaction", "There is not cover on the account!");
+        }
+        balance = balance.add(amount);
+    }
 }

@@ -1,14 +1,13 @@
-package bank.account;
+package bankremake.account;
 
-import bank.exceptions.BadRequestException;
+import bankremake.exceptions.BadRequestException;
+import bankremake.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
-import bank.exceptions.NotFoundException;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -17,44 +16,57 @@ public class AccountService {
     private final AccountRepository repository;
     private final ModelMapper modelMapper;
 
-    @Transactional
-    public AccountDto createAccount(ModifyAndCreateAccountCommand command) {
-        Account account = new Account();
-        account.setName(command.getName());
-        repository.save(account);
-        account.setNumber(String.format("%08d", account.getId() % 100000000));
-        return modelMapper.map(account, AccountDto.class);
-    }
-
-    public AccountDto getAccount(long id) {
-        return modelMapper.map(findAccount(id), AccountDto.class);
-    }
-
-    public List<AccountsDto> getAccounts() {
-        return modelMapper.map(repository.findAll(), new TypeToken<List<AccountsDto>>() {
+    public List<AccountMinimalDto> getAccounts() {
+        return modelMapper.map(repository.listAccounts(), new TypeToken<List<AccountMinimalDto>>() {
         }.getType());
     }
 
+    public AccountWithTransactionsDto getAccount(long id) {
+        return modelMapper.map(findAccount(id), AccountWithTransactionsDto.class);
+    }
+
     @Transactional
-    public AccountDto updateAccount(long id, ModifyAndCreateAccountCommand command) {
+    public AccountDto createAccount(String name) {
+        checkName(name);
+        Account account = new Account(name);
+        repository.save(account);
+        account.setAccountNumber(String.format("%08d", account.getId() % 100000000));
+        return modelMapper.map(account, AccountDto.class);
+    }
+
+    @Transactional
+    public AccountDto updateAccount(long id, String name) {
+        checkName(name);
         Account account = findAccount(id);
-        if (account.getName().equals("It is a closed account!")) {
-            throw new BadRequestException("/api/account", "Modify account", "The account has already been highlighted to delete.");
+        if (account.isDeletedAccount()) {
+            throw new BadRequestException("/api/accounts", "Customer name", "This account was deleted: " + account.getAccountNumber());
         }
-        account.setName(command.getName());
+        account.setCustomerName(name);
         return modelMapper.map(account, AccountDto.class);
     }
 
     @Transactional
     public void deleteAccount(long id) {
         Account account = findAccount(id);
-        account.setName("It is a closed account!");
-        account.setAmount(BigDecimal.ZERO);
+        if (account.isDeletedAccount()) {
+            throw new BadRequestException("/api/accounts", "Customer name", "This account has already been deleted: " + account.getAccountNumber());
+        }
+        account.setDeletedAccount(true);
+    }
+
+    private void checkName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new BadRequestException("/api/accounts", "Customer name", "Illegal name for customer: " + name);
+        }
     }
 
     private Account findAccount(long id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("/api/accounts", "Find account", "There is no account with this id: " + id));
+    }
+
+    public Account findAccount(String accountNumber) {
+        return repository.find(accountNumber);
     }
 }

@@ -188,3 +188,5 @@ A lekérdezés feltételei:
 - A válasz tartalmazza a megfelelő adatokat - 2 pont
 
 Teszteset: `RecordersListIT`
+
+forrás: https://github.com/Training360/strukt-val-java-public/tree/7703f73e8d20ce44030b3811c86f271673c02159/sv2021-jvjbf-kepesitovizsga
