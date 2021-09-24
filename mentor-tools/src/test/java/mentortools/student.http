@@ -1,0 +1,35 @@
+### list of the students
+GET http://localhost:8080/api/students
+Accept: application/json
+
+
+### create a new student
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@mailserver.hu",
+  "gitHubUserName": "johndoe",
+  "comment": "This is John Doe's profile."
+}
+
+
+### update a student
+PUT http://localhost:8080/api/students/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@mailserver.hu",
+  "gitHubUserName": "janedoe",
+  "comment": "This is Jane Doe's profile."
+}
+
+
+### delete a student
+DELETE http://localhost:8080/api/students/1
+Content-Type: application/json
+Accept: application/json

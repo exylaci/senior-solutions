@@ -18,6 +18,7 @@
         <module>gyaxi</module>
         <module>exams</module>
         <module>activitytracker-jpa-solution</module>
+        <module>mentor-tools</module>
     </modules>
 
     <properties>
